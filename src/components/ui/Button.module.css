@@ -1,0 +1,120 @@
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-silk),
+    border-color var(--dur-fast) var(--ease-silk),
+    transform var(--dur-fast) var(--ease-silk);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+/* o preenchimento sobe de baixo, como tecido levantado */
+.fill {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.55s var(--ease-silk);
+}
+
+.btn:hover .fill,
+.btn:focus-visible .fill {
+  transform: scaleY(1);
+}
+
+/* ---- tamanhos ---- */
+.sm {
+  padding: 0.62rem 1.25rem;
+  font-size: 0.64rem;
+}
+.md {
+  padding: 0.95rem 2rem;
+  font-size: var(--fs-micro);
+}
+.lg {
+  padding: 1.2rem 2.9rem;
+  font-size: 0.74rem;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+}
+
+/* ---- variantes ---- */
+.solid {
+  background: var(--ink);
+  color: var(--surface);
+  border: 1px solid var(--ink);
+}
+.solid .fill {
+  background: var(--malva-500);
+}
+.solid:hover {
+  color: #fff;
+  border-color: var(--malva-500);
+}
+
+.outline {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: transparent;
+}
+.outline .fill {
+  background: var(--ink);
+}
+.outline:hover {
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.ghost {
+  color: var(--ink);
+  border: 1px solid transparent;
+  padding-inline: 0.4rem;
+}
+.ghost .fill {
+  background: transparent;
+  border-bottom: 1px solid var(--malva-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-silk);
+}
+.ghost:hover .fill,
+.ghost:focus-visible .fill {
+  transform: scaleX(1);
+}
+.ghost:hover {
+  color: var(--malva-500);
+}
+
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.btn:disabled .fill {
+  transform: scaleY(0);
+}

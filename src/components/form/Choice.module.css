@@ -1,0 +1,222 @@
+/* ---------- select ---------- */
+
+.select {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.35rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.selectLabel {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 0.55rem;
+}
+
+.optional {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.6;
+}
+
+.selectControl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.native {
+  appearance: none;
+  flex: 1;
+  padding: 0.2rem 1.8rem 0.7rem 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.native:focus {
+  outline: none;
+}
+
+.native option {
+  color: #2b1620;
+  background: #fbf7f4;
+}
+
+.caret {
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+  width: 12px;
+  color: var(--ink-mute);
+  pointer-events: none;
+  transition: transform 0.4s var(--ease-silk);
+}
+
+.selectControl:focus-within .caret {
+  transform: translateY(2px);
+  color: var(--malva-500);
+}
+
+.underline {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--malva-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-silk);
+}
+
+.selectControl:focus-within .underline {
+  transform: scaleX(1);
+}
+
+.invalid .selectControl {
+  border-bottom-color: var(--malva-400);
+}
+.invalid .underline {
+  background: var(--malva-600);
+  transform: scaleX(1);
+}
+
+/* ---------- pílulas ---------- */
+
+.pills {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.pill {
+  position: relative;
+  isolation: isolate;
+  padding: 0.62rem 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  transition: color 0.35s var(--ease-silk), border-color 0.35s var(--ease-silk);
+}
+
+.pill:hover {
+  border-color: var(--malva-300);
+  color: var(--ink);
+}
+
+.pillOn {
+  color: var(--ivory);
+  border-color: var(--ink);
+}
+
+.pillFill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.pillText {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- checkbox ---------- */
+
+.checkWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  cursor: pointer;
+}
+
+.checkInput {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.box {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 0.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  color: var(--malva-500);
+  transition: border-color 0.35s var(--ease-silk), background 0.35s var(--ease-silk);
+}
+
+.box svg {
+  width: 15px;
+  height: 15px;
+  overflow: visible;
+}
+
+.check:hover .box {
+  border-color: var(--malva-300);
+}
+
+.checkInput:checked + .box {
+  border-color: var(--malva-400);
+  background: var(--malva-50);
+}
+
+.checkInput:focus-visible + .box {
+  outline: 1px solid var(--malva-400);
+  outline-offset: 3px;
+}
+
+.checkText {
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.error {
+  margin-top: 0.4rem;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--malva-600);
+}

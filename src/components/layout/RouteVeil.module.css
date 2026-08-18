@@ -1,0 +1,27 @@
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  pointer-events: none;
+}
+
+.panel {
+  flex: 1;
+  height: 100%;
+  will-change: transform;
+}
+
+.mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ivory);
+  mix-blend-mode: overlay;
+}
+
+.mark svg {
+  width: clamp(3.5rem, 7vw, 6rem);
+  height: clamp(3.5rem, 7vw, 6rem);
+}

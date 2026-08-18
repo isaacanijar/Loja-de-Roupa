@@ -1,0 +1,148 @@
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.35rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.label {
+  position: absolute;
+  top: 1.55rem;
+  left: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--ink-mute);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 0.42s var(--ease-silk), color 0.42s var(--ease-silk),
+    letter-spacing 0.42s var(--ease-silk);
+}
+
+.lifted {
+  transform: translateY(-1.62rem) scale(0.72);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.optional {
+  font-size: 0.82em;
+  opacity: 0.6;
+}
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+  padding: 0.35rem 0 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--ink);
+  background: transparent;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+/* Campos de data: o ícone nativo herda a cor da marca */
+.input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.input[type='date']:hover::-webkit-calendar-picker-indicator {
+  opacity: 0.9;
+}
+
+.area {
+  resize: vertical;
+  min-height: 6.5rem;
+  line-height: 1.6;
+}
+
+.suffix {
+  font-size: var(--fs-small);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* traço que corre da esquerda ao focar */
+.underline {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--malva-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-silk);
+}
+
+.control:focus-within .underline {
+  transform: scaleX(1);
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: var(--fs-small);
+  font-weight: 300;
+  color: var(--ink-mute);
+}
+
+.error {
+  margin-top: 0.5rem;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--malva-600);
+}
+
+.invalid .control {
+  border-bottom-color: var(--malva-400);
+}
+
+.invalid .underline {
+  background: var(--malva-600);
+  transform: scaleX(1);
+}
+
+.areaFoot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.counter {
+  margin-top: 0.5rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

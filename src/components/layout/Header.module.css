@@ -1,0 +1,229 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  transition: background 0.6s var(--ease-silk), backdrop-filter 0.6s var(--ease-silk),
+    border-color 0.6s var(--ease-silk), padding 0.6s var(--ease-silk);
+  border-bottom: 1px solid transparent;
+  padding-block: clamp(1rem, 2vw, 1.7rem);
+}
+
+.solid {
+  background: rgba(251, 247, 244, 0.82);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom-color: var(--line-soft);
+  padding-block: 0.85rem;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.brand {
+  justify-self: start;
+}
+
+/* ---------- navegação de desktop ---------- */
+
+.nav {
+  display: flex;
+  gap: clamp(1.2rem, 2.6vw, 2.8rem);
+  justify-self: center;
+}
+
+.link {
+  position: relative;
+  padding-block: 0.3rem;
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color 0.4s var(--ease-silk);
+}
+
+.link:hover {
+  color: var(--ink);
+}
+
+.linkRule {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--malva-400);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-silk);
+}
+
+.link:hover .linkRule {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.linkOn {
+  color: var(--ink);
+}
+
+.linkOn .linkRule {
+  transform: scaleX(1);
+  background: var(--ink);
+}
+
+/* ---------- ações ---------- */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  justify-self: end;
+}
+
+.bag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color 0.35s ease;
+}
+
+.bag:hover {
+  color: var(--malva-500);
+}
+
+.count {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0.18em 0.42em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.62rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ---------- menu mobile ---------- */
+
+.burger {
+  display: none;
+  position: relative;
+  width: 30px;
+  height: 16px;
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--ink);
+  transition: transform 0.5s var(--ease-silk), opacity 0.3s ease;
+}
+
+.bar:first-of-type {
+  top: 3px;
+}
+.bar:last-of-type {
+  bottom: 3px;
+  width: 68%;
+}
+
+.barTop {
+  transform: translateY(4.5px) rotate(9deg);
+}
+.barBottom {
+  width: 100% !important;
+  transform: translateY(-4.5px) rotate(-9deg);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--ivory);
+  overflow: hidden;
+}
+
+.overlayInner {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+  padding: clamp(6rem, 14vh, 9rem) var(--gutter) var(--gutter);
+}
+
+.bigNav {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1.4vh, 1rem);
+}
+
+.bigLink {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--ink);
+  transition: color 0.4s ease, transform 0.6s var(--ease-silk);
+}
+
+.bigLink:hover {
+  color: var(--malva-500);
+  transform: translateX(14px);
+}
+
+.bigIndex {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: var(--track-mid);
+  color: var(--ink-mute);
+}
+
+.overlayArt {
+  height: 100%;
+  max-height: 62vh;
+  justify-self: center;
+}
+
+.overlayArt svg {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 940px) {
+  .nav {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+  .overlayInner {
+    grid-template-columns: 1fr;
+    align-content: center;
+  }
+  .overlayArt {
+    display: none;
+  }
+}

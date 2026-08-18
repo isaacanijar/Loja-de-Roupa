@@ -1,0 +1,43 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.66rem;
+  color: var(--ink);
+}
+
+.mark {
+  width: 1.55rem;
+  height: 1.55rem;
+  flex: none;
+  color: var(--malva-400);
+  transition: transform 0.9s var(--ease-silk), color 0.4s ease;
+}
+
+.wrap:hover .mark {
+  transform: rotate(72deg);
+  color: var(--malva-500);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.name {
+  font-family: var(--font-logo);
+  font-size: 1.62rem;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+}
+
+.sig {
+  margin-top: 0.34rem;
+  font-family: var(--font-sans);
+  font-size: 0.54rem;
+  font-weight: 300;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}

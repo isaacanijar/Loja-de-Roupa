@@ -1,0 +1,97 @@
+.wrap {
+  position: relative;
+  padding-top: 0.75rem;
+}
+
+.rail {
+  position: absolute;
+  top: 1.1rem;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: var(--line);
+}
+
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  height: 1px;
+  background: var(--malva-400);
+}
+
+.list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.4rem;
+  text-align: center;
+  color: var(--ink-mute);
+  transition: color 0.4s var(--ease-silk);
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: all 0.45s var(--ease-silk);
+}
+
+.index {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.done .dot {
+  background: var(--malva-300);
+  border-color: var(--malva-300);
+}
+
+.active {
+  color: var(--ink);
+}
+
+.active .dot {
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: scale(1.35);
+  box-shadow: 0 0 0 5px var(--malva-50);
+}
+
+.locked {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.node:not(.locked):hover {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .label {
+    font-size: 0.9rem;
+  }
+}
