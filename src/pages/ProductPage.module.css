@@ -60,7 +60,9 @@
   position: relative;
   display: grid;
   place-items: center;
-  aspect-ratio: 4 / 4.8;
+  /* mesma proporcao das fotos (3:4): assim a peca fotografada nunca e
+     cortada na barra nem no ombro */
+  aspect-ratio: 3 / 4;
   padding: clamp(1.5rem, 4vw, 3rem);
 }
 
@@ -75,6 +77,16 @@
 .canvas {
   width: 100%;
   height: 100%;
+}
+
+/* A foto extravasa o respiro do palco: o fundo do estúdio encosta na
+   borda da moldura, como em catálogo impresso. */
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .viewToggle {
@@ -453,7 +465,7 @@
   }
 
   .stageInner {
-    aspect-ratio: 4 / 4.2;
+    aspect-ratio: 3 / 3.6;
   }
 
   .promisesGrid {

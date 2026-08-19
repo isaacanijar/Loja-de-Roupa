@@ -146,7 +146,9 @@
 
 .pecaArt {
   width: 100%;
-  height: clamp(78px, 9vw, 108px);
+  height: clamp(96px, 11vw, 132px);
+  object-fit: cover;
+  border-radius: var(--radius-s);
   transition: transform 0.5s var(--ease-silk);
 }
 

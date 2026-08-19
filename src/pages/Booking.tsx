@@ -20,6 +20,7 @@ import {
   type BookingForm,
 } from '@/lib/validation'
 import { bookingCode, maskMeasure, maskPhone, prettyDate, todayISO } from '@/lib/format'
+import { coverOf } from '@/lib/photo'
 import styles from './Booking.module.css'
 
 const PASSOS = ['Quem é você', 'Quando', 'O que procura']
@@ -340,11 +341,14 @@ export default function Booking() {
                               onClick={() => togglePeca(p.name)}
                               aria-pressed={on}
                             >
-                              <GarmentFigure
-                                shape={p.shape}
-                                colorway={p.colorways[0]}
-                                stitchOnView={false}
+                              <img
+                                src={coverOf(p)}
+                                alt=""
                                 className={styles.pecaArt}
+                                width={900}
+                                height={1200}
+                                loading="lazy"
+                                decoding="async"
                               />
                               <span className={styles.pecaName}>{p.name}</span>
                               <span className={styles.pecaMeta}>{p.fabric}</span>

@@ -11,9 +11,16 @@ import { TextReveal } from '@/components/ui/TextReveal'
 import { useCart } from '@/context/CartContext'
 import { getProduct, relatedProducts } from '@/data/products'
 import { installments, money } from '@/lib/format'
+import { photoOf } from '@/lib/photo'
 import styles from './ProductPage.module.css'
 
-type View = 'desenho' | 'volume'
+type View = 'foto' | 'desenho' | 'volume'
+
+const VISTAS: { key: View; label: string }[] = [
+  { key: 'foto', label: 'Foto' },
+  { key: 'desenho', label: 'Desenho' },
+  { key: 'volume', label: 'Volume 3D' },
+]
 
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -21,7 +28,7 @@ export default function ProductPage() {
 
   const [tone, setTone] = useState(0)
   const [size, setSize] = useState<string | null>(null)
-  const [view, setView] = useState<View>('desenho')
+  const [view, setView] = useState<View>('foto')
   const [openNote, setOpenNote] = useState<number | null>(0)
   const [sizeAlert, setSizeAlert] = useState(false)
 
@@ -31,7 +38,7 @@ export default function ProductPage() {
   useEffect(() => {
     setTone(0)
     setSize(null)
-    setView('desenho')
+    setView('foto')
     setOpenNote(0)
     setSizeAlert(false)
   }, [slug])
@@ -77,7 +84,25 @@ export default function ProductPage() {
 
           <div className={styles.stageInner}>
             <AnimatePresence mode="wait">
-              {view === 'desenho' ? (
+              {view === 'foto' ? (
+                <motion.div
+                  key="foto"
+                  className={styles.stageSlot}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.03 }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <img
+                    src={photoOf(product, colorway)}
+                    alt={product.name + ' em ' + colorway.name}
+                    className={styles.photo}
+                    width={900}
+                    height={1200}
+                    decoding="async"
+                  />
+                </motion.div>
+              ) : view === 'desenho' ? (
                 <motion.div
                   key="desenho"
                   className={styles.stageSlot}
@@ -123,23 +148,23 @@ export default function ProductPage() {
           </div>
 
           <div className={styles.viewToggle} role="tablist" aria-label="Modo de visualização">
-            {(['desenho', 'volume'] as View[]).map((v) => (
+            {VISTAS.map((v) => (
               <button
-                key={v}
+                key={v.key}
                 type="button"
                 role="tab"
-                aria-selected={view === v}
-                className={[styles.viewBtn, view === v ? styles.viewOn : ''].join(' ')}
-                onClick={() => setView(v)}
+                aria-selected={view === v.key}
+                className={[styles.viewBtn, view === v.key ? styles.viewOn : ''].join(' ')}
+                onClick={() => setView(v.key)}
               >
-                {view === v && (
+                {view === v.key && (
                   <motion.span
                     layoutId="produto-view"
                     className={styles.viewFill}
                     transition={{ type: 'spring', stiffness: 360, damping: 32 }}
                   />
                 )}
-                <span>{v === 'desenho' ? 'Desenho' : 'Volume 3D'}</span>
+                <span>{v.label}</span>
               </button>
             ))}
           </div>

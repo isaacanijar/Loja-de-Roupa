@@ -9,6 +9,7 @@ import { TextReveal } from '@/components/ui/TextReveal'
 import { LOOKS } from '@/data/looks'
 import { getProduct } from '@/data/products'
 import { money } from '@/lib/format'
+import { photoOf } from '@/lib/photo'
 import { useReducedMotion } from '@/hooks/useMediaQuery'
 import styles from './Lookbook.module.css'
 
@@ -105,16 +106,31 @@ export default function Lookbook() {
 
                   {produto && (
                     <div className={styles.piece}>
-                      <span className="eyebrow">Peça em cena</span>
-                      <Link to={'/produto/' + produto.slug} className={styles.pieceName}>
-                        {produto.name}
+                      {/* a arte ao lado é a modelagem em transformação;
+                          aqui entra a peça como ela é, fotografada */}
+                      <Link to={'/produto/' + produto.slug} className={styles.pieceThumb}>
+                        <img
+                          src={photoOf(produto, look.colorway)}
+                          alt={produto.name + ' em ' + look.colorway.name}
+                          width={900}
+                          height={1200}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </Link>
-                      <p className={styles.pieceMeta}>
-                        {produto.fabric} · {look.colorway.name} · {money(produto.price)}
-                      </p>
-                      <Button to={'/produto/' + produto.slug} variant="outline">
-                        Ver a ficha
-                      </Button>
+
+                      <div className={styles.pieceInfo}>
+                        <span className="eyebrow">Peça em cena</span>
+                        <Link to={'/produto/' + produto.slug} className={styles.pieceName}>
+                          {produto.name}
+                        </Link>
+                        <p className={styles.pieceMeta}>
+                          {produto.fabric} · {look.colorway.name} · {money(produto.price)}
+                        </p>
+                        <Button to={'/produto/' + produto.slug} variant="outline">
+                          Ver a ficha
+                        </Button>
+                      </div>
                     </div>
                   )}
                 </motion.div>

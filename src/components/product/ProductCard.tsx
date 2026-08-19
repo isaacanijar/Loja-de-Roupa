@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { GarmentFigure } from '@/components/art/GarmentFigure'
+import { AnimatePresence, motion } from 'framer-motion'
 import { money } from '@/lib/format'
+import { photoOf } from '@/lib/photo'
 import type { Product } from '@/types/catalog'
 import styles from './ProductCard.module.css'
 
@@ -15,8 +15,9 @@ interface ProductCardProps {
 }
 
 /**
- * Peça na arara. Ao passar o ponteiro, a peça troca de cor sem trocar
- * de desenho: o tecido é o mesmo, o banho de cor é outro.
+ * Peça na arara. Cada banho de cor é uma fotografia própria, feita no
+ * mesmo fundo e na mesma luz — trocar o tom troca a foto por dissolução,
+ * sem a peça sair do lugar.
  */
 export function ProductCard({ product, index = 0, tall = false }: ProductCardProps) {
   const [tone, setTone] = useState(0)
@@ -29,22 +30,24 @@ export function ProductCard({ product, index = 0, tall = false }: ProductCardPro
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, delay: (index % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      onMouseEnter={() => setTone((t) => t + 1)}
     >
       <Link to={'/produto/' + product.slug} className={styles.frame}>
-        <span
-          className={styles.wash}
-          style={{ background: 'radial-gradient(120% 90% at 50% 8%, ' + colorway.hex + '2e, transparent 72%)' }}
-          aria-hidden="true"
-        />
-
-        <GarmentFigure
-          shape={product.shape}
-          colorway={colorway}
-          hanger
-          className={styles.art}
-          title={product.name + ' em ' + colorway.name}
-        />
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={colorway.name}
+            src={photoOf(product, colorway)}
+            alt={product.name + ' em ' + colorway.name}
+            className={styles.photo}
+            loading={index < 4 ? 'eager' : 'lazy'}
+            decoding="async"
+            width={900}
+            height={1200}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </AnimatePresence>
 
         {product.badge && <span className={styles.badge}>{product.badge}</span>}
 
@@ -81,6 +84,8 @@ export function ProductCard({ product, index = 0, tall = false }: ProductCardPro
                 type="button"
                 className={[styles.tone, i === tone % product.colorways.length ? styles.toneOn : ''].join(' ')}
                 style={{ background: c.hex }}
+                onMouseEnter={() => setTone(i)}
+                onFocus={() => setTone(i)}
                 onClick={() => setTone(i)}
                 aria-label={'Ver em ' + c.name}
                 title={c.name}

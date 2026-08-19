@@ -20,27 +20,21 @@
   aspect-ratio: 3 / 4.6;
 }
 
-.wash {
+/* A fotografia ocupa a moldura inteira: o fundo do estudio ja e o
+   fundo do cartao. As fotos empilham no mesmo lugar para a troca de
+   cor ser uma dissolucao, e nao um salto. */
+.photo {
   position: absolute;
   inset: 0;
-  transition: opacity 0.8s var(--ease-silk);
-  opacity: 0.9;
-}
-
-.card:hover .frame {
-  background: var(--linen);
-}
-
-.art {
-  position: relative;
-  height: 84%;
   width: 100%;
-  transition: transform 1.1s var(--ease-silk);
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-silk);
   will-change: transform;
 }
 
-.card:hover .art {
-  transform: translateY(-10px) scale(1.035);
+.card:hover .photo {
+  transform: scale(1.04);
 }
 
 .badge {
