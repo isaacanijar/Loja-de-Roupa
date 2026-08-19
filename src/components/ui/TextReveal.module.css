@@ -5,6 +5,14 @@
   /* espaço extra para descendentes (g, j, ç) não serem cortadas */
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
+  /* e para os acentos altos (ê, á, ç maiúsculo) no topo */
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+  /* a serifada itálica avança para além da largura do glifo — sem esta
+     folga o último caractere de uma linha em itálico é cortado pela
+     máscara. A margem negativa devolve o espaço, o ritmo não muda. */
+  padding-right: 0.16em;
+  margin-right: -0.16em;
 }
 
 .word {

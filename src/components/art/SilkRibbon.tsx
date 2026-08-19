@@ -1,5 +1,4 @@
 import { useId, useMemo } from 'react'
-import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useMediaQuery'
 
 interface SilkRibbonProps {
@@ -95,14 +94,29 @@ export function SilkRibbon({
         </filter>
       </defs>
 
-      <motion.path
+      {/* A ondulação é feita em SMIL, não em JS: os três estados têm a
+          mesma estrutura de comandos (mesma função os gerou), então o
+          navegador interpola o path nativamente, sem custo por frame.
+          Interpolar `d` pelo framer-motion não é suportado — ele emite
+          um quadro com d indefinido e o path some. */}
+      <path
         d={states[0]}
         fill={'url(#' + uid + '-r)'}
         opacity={opacity}
         filter={'url(#' + uid + '-soft)'}
-        animate={reduced ? undefined : { d: [states[0], states[1], states[2], states[0]] }}
-        transition={{ duration: speed, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      >
+        {!reduced && (
+          <animate
+            attributeName="d"
+            values={[states[0], states[1], states[2], states[0]].join(';')}
+            keyTimes="0;0.333;0.667;1"
+            calcMode="spline"
+            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+            dur={speed + 's'}
+            repeatCount="indefinite"
+          />
+        )}
+      </path>
     </svg>
   )
 }

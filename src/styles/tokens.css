@@ -12,8 +12,13 @@
   --sand: #e3d5cb;
   --taupe: #b7a49a;
 
-  /* ---- Cor: tinta ---- */
-  --ink: #2b1620;
+  /* ---- Cor: tinta ----
+     `--plum` guarda o valor literal da tinta. `--ink` é o papel de
+     "cor do texto" e troca de valor em .theme-ink; quem precisa da
+     ameixa como SUPERFÍCIE deve usar --plum, nunca --ink, senão a
+     referência é resolvida já com o valor invertido. */
+  --plum: #2b1620;
+  --ink: var(--plum);
   --ink-soft: #4a3340;
   --ink-mute: #7b6672;
 
@@ -83,7 +88,7 @@
 
 /* Seções em modo escuro (ameixa) — usadas em editorial e rodapé */
 .theme-ink {
-  --surface: var(--ink);
+  --surface: var(--plum);
   --surface-raised: #38202c;
   --ink: var(--ivory);
   --ink-soft: rgba(251, 247, 244, 0.78);
@@ -91,5 +96,5 @@
   --line: rgba(251, 247, 244, 0.16);
   --line-soft: rgba(251, 247, 244, 0.08);
   color: var(--ivory);
-  background: var(--ink);
+  background: var(--plum);
 }

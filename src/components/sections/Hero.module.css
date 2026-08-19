@@ -1,0 +1,292 @@
+/* =========================================================
+   MALVA — Herói
+   Duas colunas: a fala à esquerda, a peça à direita.
+   O tecido em WebGL fica atrás de tudo, quase imperceptível.
+   ========================================================= */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(7rem, 14vh, 10rem);
+  padding-bottom: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* halo de luz que vem do alto, como a janela leste do ateliê */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -28vh;
+  right: -12vw;
+  width: 78vw;
+  height: 90vh;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    rgba(242, 221, 232, 0.85),
+    rgba(230, 208, 179, 0.28) 55%,
+    transparent 78%
+  );
+  animation: breathe 18s var(--ease-in-out-soft) infinite;
+}
+
+.scene {
+  position: absolute;
+  inset: -6% -10% 0 22%;
+  z-index: -1;
+  pointer-events: none;
+  /* o plano de seda é maior que a moldura do canvas, então o
+     esmaecido do próprio shader fica fora de quadro e sobra um corte
+     reto. A máscara devolve a borda difusa — tecido não tem aresta. */
+  -webkit-mask-image: radial-gradient(78% 72% at 62% 42%, #000 34%, transparent 82%);
+  mask-image: radial-gradient(78% 72% at 62% 42%, #000 34%, transparent 82%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  flex: 1;
+}
+
+/* ---------- coluna da fala ---------- */
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  max-width: 34ch;
+}
+
+.season {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--malva-600);
+}
+
+.season::before {
+  content: '';
+  width: clamp(24px, 4vw, 52px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.title {
+  font-size: var(--fs-display);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin-block: -0.4rem;
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleItalic {
+  display: block;
+  padding-left: clamp(0.6rem, 4vw, 2.6rem);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--malva-500);
+}
+
+.lede {
+  max-width: 42ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.4rem;
+  margin-top: 0.4rem;
+}
+
+/* ---------- coluna da peça ---------- */
+
+.art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  will-change: transform;
+}
+
+.morph {
+  width: 100%;
+  height: clamp(340px, 58vh, 620px);
+  overflow: visible;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 5.4rem;
+  text-align: center;
+}
+
+.capName {
+  font-family: var(--font-display);
+  font-size: 1.34rem;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--ease-silk), color 0.4s ease;
+}
+
+.capName:hover {
+  color: var(--malva-500);
+  border-bottom-color: currentColor;
+}
+
+.capMeta {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  position: relative;
+  width: 34px;
+  height: 2px;
+  overflow: hidden;
+  background: var(--sand);
+  border-radius: var(--radius-pill);
+  transition: background 0.4s ease;
+}
+
+.dot:hover {
+  background: var(--taupe);
+}
+
+.dotOn {
+  background: var(--sand);
+}
+
+.dotFill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  background: var(--malva-500);
+}
+
+/* peça sem movimento: o traço ativo fica preenchido */
+@media (prefers-reduced-motion: reduce) {
+  .dotOn {
+    background: var(--malva-500);
+  }
+}
+
+/* ---------- rodapé do herói ---------- */
+
+.bottom {
+  margin-top: clamp(2rem, 6vh, 4rem);
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.cue {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(6.5rem, 14vh, 9rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  pointer-events: none;
+}
+
+.cue i {
+  display: block;
+  width: 46px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ink-mute), transparent);
+  transform-origin: left;
+  animation: cue-pull 2.6s var(--ease-in-out-soft) infinite;
+}
+
+@keyframes cue-pull {
+  0%,
+  100% {
+    transform: scaleX(0.5);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- adaptações ---------- */
+
+@media (max-width: 1080px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    padding-bottom: 1rem;
+  }
+
+  .copy {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .season::before {
+    display: none;
+  }
+
+  .titleItalic {
+    padding-left: 0;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .scene {
+    inset: 0;
+    opacity: 0.7;
+  }
+
+  .morph {
+    height: clamp(280px, 42vh, 420px);
+  }
+
+  .cue {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-top: 6.5rem;
+  }
+
+  .actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

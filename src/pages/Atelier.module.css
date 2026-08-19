@@ -1,0 +1,447 @@
+/* =========================================================
+   MALVA — O ateliê
+   ========================================================= */
+
+.h2 {
+  font-size: var(--fs-h2);
+  margin-top: 0.6rem;
+}
+
+/* ---------- abertura ---------- */
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.4fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: clamp(8rem, 18vh, 13rem);
+  padding-bottom: clamp(4rem, 9vh, 7rem);
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.title {
+  font-size: var(--fs-display);
+  max-width: 15ch;
+  letter-spacing: -0.03em;
+}
+
+.intro {
+  max-width: 52ch;
+}
+
+.headArt {
+  display: grid;
+  place-items: center;
+}
+
+.mark {
+  width: clamp(120px, 18vw, 220px);
+  color: var(--malva-300);
+  animation: silk-drift 22s var(--ease-in-out-soft) infinite;
+}
+
+/* ---------- manifesto ---------- */
+
+.manifesto {
+  padding-block: var(--section-y);
+}
+
+.manifestoInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.manifestoHead {
+  position: sticky;
+  top: clamp(6rem, 12vh, 8rem);
+}
+
+.rules {
+  display: flex;
+  flex-direction: column;
+}
+
+.rule {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 2rem);
+  padding-block: clamp(1.6rem, 3vw, 2.4rem);
+  border-top: 1px solid var(--line);
+}
+
+.rules > *:last-child .rule {
+  border-bottom: 1px solid var(--line);
+}
+
+.ruleNumber {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 0.9;
+  color: var(--malva-300);
+}
+
+.ruleTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ruleBody {
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
+
+/* ---------- fita ---------- */
+
+.ribbon {
+  width: 100%;
+  height: clamp(110px, 15vw, 200px);
+  pointer-events: none;
+}
+
+.ribbon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- linha do tempo ---------- */
+
+.timeline {
+  padding-block: var(--section-y);
+}
+
+/* medida em rem, não em ch: o `ch` seria calculado na fonte sem serifa
+   do contêiner e estrangularia o título, que é serifado e bem maior */
+.timelineHead {
+  max-width: 36rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.years {
+  display: flex;
+  flex-direction: column;
+}
+
+.year {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(1.8rem, 3vw, 2.6rem);
+  border-top: 1px solid var(--line-soft);
+  transition: background 0.6s var(--ease-silk);
+}
+
+.year:hover {
+  background: var(--ivory-deep);
+}
+
+.yearMark {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.yearMark span {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1;
+  color: var(--malva-500);
+}
+
+.yearMark i {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left;
+  transform: scaleX(0.4);
+  transition: transform 0.8s var(--ease-silk);
+}
+
+.year:hover .yearMark i {
+  transform: scaleX(1);
+}
+
+.yearBody h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.yearBody p {
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+/* ---------- método ---------- */
+
+.method {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--line-soft);
+}
+
+.methodArt {
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  border-radius: var(--radius-m);
+  background: var(--ivory-deep);
+}
+
+.methodMorph {
+  width: 100%;
+  height: clamp(280px, 44vh, 460px);
+  overflow: visible;
+}
+
+.methodCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.methodSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.step {
+  position: relative;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-m);
+  text-align: left;
+  transition: color 0.4s ease;
+}
+
+.stepFill {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-m);
+  background: var(--ink);
+}
+
+.stepText {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stepText strong {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.stepText em {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.92rem;
+  color: var(--ink-mute);
+  transition: color 0.4s ease;
+}
+
+.step:hover {
+  color: var(--malva-500);
+}
+
+.stepOn {
+  color: var(--ivory);
+}
+
+.stepOn:hover {
+  color: var(--ivory);
+}
+
+.stepOn .stepText em {
+  color: rgba(251, 247, 244, 0.7);
+}
+
+/* ---------- as mãos ---------- */
+
+.hands {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--line-soft);
+}
+
+.handsHead {
+  max-width: 46ch;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.handsHead p:last-child {
+  margin-top: 1rem;
+}
+
+.handsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 3rem);
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--ink);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 0.6rem;
+  border-radius: 50%;
+  background: var(--malva-100);
+  color: var(--malva-600);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  transition: background 0.5s var(--ease-silk), transform 0.5s var(--ease-silk);
+}
+
+.person:hover .avatar {
+  background: var(--malva-200);
+  transform: translateY(-4px);
+}
+
+.person h3 {
+  font-size: 1.24rem;
+}
+
+.person p {
+  font-size: 0.9rem;
+  color: var(--ink-mute);
+}
+
+/* ---------- visita ---------- */
+
+.visit {
+  padding-block: var(--section-y);
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-deep) 50%, var(--linen) 100%);
+}
+
+.visitInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.visitArt svg {
+  width: 100%;
+  height: clamp(280px, 40vh, 440px);
+}
+
+.visitCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+
+.info {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.info > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.info dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.info dd {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+}
+
+.info a {
+  border-bottom: 1px solid var(--line);
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+
+.info a:hover {
+  color: var(--malva-500);
+  border-bottom-color: currentColor;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .head,
+  .manifestoInner,
+  .method,
+  .visitInner {
+    grid-template-columns: 1fr;
+  }
+
+  .headArt {
+    order: -1;
+  }
+
+  .mark {
+    width: clamp(90px, 22vw, 140px);
+  }
+
+  .manifestoHead {
+    position: static;
+  }
+
+  .methodArt {
+    order: -1;
+  }
+
+  .handsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .visitArt {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 680px) {
+  .rule,
+  .year,
+  .info > div {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .yearMark i {
+    display: none;
+  }
+
+  .handsGrid {
+    grid-template-columns: 1fr;
+  }
+}

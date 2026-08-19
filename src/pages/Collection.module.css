@@ -1,0 +1,239 @@
+/* =========================================================
+   MALVA — Acervo
+   ========================================================= */
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.52fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: clamp(8rem, 18vh, 13rem);
+  padding-bottom: clamp(3rem, 7vh, 5rem);
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.title {
+  font-size: var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.intro {
+  max-width: 52ch;
+}
+
+.headArt {
+  display: grid;
+  place-items: center;
+}
+
+.headMorph {
+  width: 100%;
+  height: clamp(240px, 34vh, 380px);
+  overflow: visible;
+}
+
+/* ---------- barra de filtros ---------- */
+
+.barWrap {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: rgba(251, 247, 244, 0.82);
+  backdrop-filter: blur(14px) saturate(1.1);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.85rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filter {
+  position: relative;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.filter:hover {
+  color: var(--ink);
+}
+
+.filterFill {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+}
+
+.filterText {
+  position: relative;
+  z-index: 1;
+}
+
+.filterOn {
+  color: var(--ivory);
+}
+
+/* ---------- ordenação ---------- */
+
+.sort {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sort select {
+  appearance: none;
+  padding: 0.5rem 2rem 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 0.4s ease;
+}
+
+.sort select:hover {
+  border-bottom-color: var(--malva-300);
+}
+
+.sort svg {
+  position: absolute;
+  right: 0.5rem;
+  width: 11px;
+  color: var(--ink-mute);
+  pointer-events: none;
+}
+
+/* ---------- grade ---------- */
+
+.body {
+  padding-top: clamp(2rem, 5vh, 3.5rem);
+  padding-bottom: var(--section-y);
+}
+
+.count {
+  margin-bottom: clamp(1.8rem, 4vh, 3rem);
+  font-size: var(--fs-small);
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+}
+
+.count span {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--ink);
+  margin-right: 0.15rem;
+}
+
+.count em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 3.5vw, 3.4rem) clamp(1.4rem, 2.6vw, 2.6rem);
+  align-items: start;
+}
+
+.empty {
+  padding-block: 5rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--ink-mute);
+}
+
+/* ---------- nota final ---------- */
+
+.note {
+  padding-bottom: var(--section-y);
+}
+
+.noteInner {
+  max-width: 62ch;
+  margin-inline: auto;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .head {
+    grid-template-columns: 1fr;
+    padding-top: clamp(7rem, 14vh, 10rem);
+  }
+
+  .headArt {
+    order: -1;
+  }
+
+  .headMorph {
+    height: clamp(200px, 26vh, 280px);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sort {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

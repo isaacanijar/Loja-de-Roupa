@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Button.module.css'
 
@@ -17,8 +17,14 @@ interface CommonProps {
 type ButtonProps = CommonProps &
   ButtonHTMLAttributes<HTMLButtonElement> & { to?: undefined; href?: undefined }
 
-type LinkProps = CommonProps & { to: string; href?: undefined }
-type AnchorProps = CommonProps & { href: string; to?: undefined; target?: string; rel?: string }
+/* Link interno e âncora externa aceitam os mesmos atributos de <a>
+   (onClick para fechar a sacola, target, rel), menos o href — que o
+   Router preenche a partir de `to`. */
+type LinkProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & { to: string; href?: undefined }
+
+type AnchorProps = CommonProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; to?: undefined }
 
 /**
  * Botão do ateliê. O preenchimento sobe de baixo para cima no hover —

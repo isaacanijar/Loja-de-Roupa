@@ -18,6 +18,12 @@ import { useReducedMotion } from '@/hooks/useMediaQuery'
 
 const S = 90 // divisor de escala: unidades de modelagem → unidades de cena
 
+/* Distância da câmera. A peça mais longa do acervo tem ~3,85 unidades
+   de altura; com fov 40° é preciso ficar a 7 para ela caber inteira
+   com folga em cima e embaixo. Mais perto, a barra e o ombro saem de
+   quadro e o vestido vira um cone. */
+const CAM_Z = 7
+
 function profileOf(g: GarmentShape): THREE.Vector2[] {
   const base = g.hemY + g.hemCurve
   const key: [number, number][] = [
@@ -47,17 +53,24 @@ function Garment({ shape, colorway }: BodyProps) {
     return geo
   }, [shape])
 
+  /* `sleeveOuter` e `sleeveInner` são coordenadas X na silhueta 2D — a
+     distância até o eixo do corpo, não a grossura da manga. O raio do
+     tubo é METADE da faixa entre as duas linhas; usá-las cruas fazia a
+     manga da bufante nascer mais larga que a blusa inteira. */
   const sleeves = useMemo(() => {
     if (shape.sleeveLength < 60) return null
     const len = (shape.sleeveLength - shape.shoulderDrop) / S
-    const top = (shape.sleeveOuter - shape.shoulder) / S + 0.16
-    const bottom = Math.max((shape.sleeveOuter - shape.sleeveInner) / S, 0.06)
-    return { len, top, bottom }
+    const cuff = Math.max(shape.sleeveOuter - shape.sleeveInner, 8) / 2 / S
+    const top = Math.max(shape.sleeveOuter - shape.shoulder, 10) / 2 / S
+    /* Eixo da manga: encostado na linha do ombro, deslocado por pouco
+       mais da metade do próprio raio — assim a cava entra no corpo em
+       vez de a manga ficar boiando ao lado dele. */
+    const axis = shape.shoulder / S + top * 0.55
+    return { len, top, bottom: cuff, axis }
   }, [shape])
 
   const base = (shape.hemY + shape.hemCurve) / S
   const shoulderY = base - shape.shoulderDrop / S
-  const shoulderX = shape.shoulder / S
 
   const material = useMemo(
     () =>
@@ -86,7 +99,7 @@ function Garment({ shape, colorway }: BodyProps) {
             <mesh
               key={side}
               material={material}
-              position={[side * shoulderX * 0.86, shoulderY - sleeves.len / 2, 0]}
+              position={[side * sleeves.axis, shoulderY - sleeves.len / 2, 0]}
               rotation={[0, 0, side * -0.16]}
               castShadow
             >
@@ -109,7 +122,7 @@ function Rig({ still }: { still: boolean }) {
   const { current: target } = useRef(new THREE.Vector3())
   useFrame((state) => {
     if (still) return
-    target.set(state.pointer.x * 0.35, 0.1 + state.pointer.y * 0.2, 4.4)
+    target.set(state.pointer.x * 0.35, 0.1 + state.pointer.y * 0.2, CAM_Z)
     state.camera.position.lerp(target, 0.035)
     state.camera.lookAt(0, 0, 0)
   })
@@ -133,12 +146,16 @@ export default function DressViewer({
   const reduced = useReducedMotion()
   const g: GarmentShape = typeof shape === 'string' ? SHAPES[shape] : shape
 
+  /* A barra da peça fica em -base/2 (o grupo é centrado por lá). A sombra
+     tem de acompanhar: fixa, ela descolava do chão nas peças curtas. */
+  const hemY = -(g.hemY + g.hemCurve) / S / 2
+
   return (
     <Canvas
       className={className}
       dpr={[1, 1.75]}
       shadows
-      camera={{ position: [0, 0.1, 4.4], fov: 40 }}
+      camera={{ position: [0, 0.1, CAM_Z], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       frameloop={reduced ? 'demand' : 'always'}
     >
@@ -150,7 +167,7 @@ export default function DressViewer({
       <Garment shape={g} colorway={colorway} />
 
       <ContactShadows
-        position={[0, -1.92, 0]}
+        position={[0, hemY - 0.02, 0]}
         opacity={0.35}
         scale={7}
         blur={2.6}

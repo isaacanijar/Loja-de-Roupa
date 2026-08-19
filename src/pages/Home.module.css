@@ -1,0 +1,455 @@
+/* =========================================================
+   MALVA — Página inicial
+   ========================================================= */
+
+/* ---------- cabeçalho de seção, reaproveitado ---------- */
+
+.sectionHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.sectionTitle {
+  font-size: var(--fs-h2);
+  margin-top: 0.7rem;
+}
+
+.sectionAside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+}
+
+/* ---------- declaração ---------- */
+
+.statement {
+  padding-block: clamp(6rem, 15vh, 12rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.2rem;
+  text-align: center;
+}
+
+.statementMark::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: clamp(2rem, 5vh, 4rem);
+  margin: 1.4rem auto 0;
+  background: linear-gradient(var(--taupe), transparent);
+}
+
+.statementText {
+  max-width: 22ch;
+  font-size: var(--fs-display);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.statementSign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.statementSign p {
+  font-size: 1.4rem;
+  color: var(--malva-500);
+}
+
+/* ---------- vitrine ---------- */
+
+.vitrine {
+  padding-bottom: var(--section-y);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.4rem, 2.6vw, 2.6rem);
+}
+
+/* a segunda peça sobe: a arara nunca é uma linha reta */
+.grid > *:nth-child(2) {
+  transform: translateY(clamp(-3rem, -4vw, -1.5rem));
+}
+
+.grid > *:nth-child(4) {
+  transform: translateY(clamp(-1.6rem, -2vw, -0.8rem));
+}
+
+/* ---------- fita de seda ---------- */
+
+.ribbon {
+  width: 112%;
+  margin-left: -6%;
+  height: clamp(120px, 18vw, 240px);
+  pointer-events: none;
+}
+
+.ribbon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- volume 3D ---------- */
+
+.volume {
+  position: relative;
+  padding-block: var(--section-y);
+  overflow: hidden;
+}
+
+.volume::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 70vw;
+  height: 70vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(207, 146, 179, 0.22), transparent 70%);
+}
+
+.volumeGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.volumeCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.volumeLede {
+  max-width: 46ch;
+}
+
+.volumeSpecs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  gap: clamp(1.2rem, 3vw, 2.6rem);
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+}
+
+.volumeSpecs p {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  line-height: 1.25;
+  color: var(--ivory);
+}
+
+.tones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.toneRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1rem 0.5rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  transition: border-color 0.4s ease, color 0.4s ease, background 0.4s ease;
+}
+
+.tone i {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(43, 22, 32, 0.2);
+}
+
+.tone:hover {
+  border-color: var(--malva-300);
+  color: var(--ivory);
+}
+
+.toneOn {
+  border-color: var(--malva-200);
+  background: rgba(242, 221, 232, 0.1);
+  color: var(--ivory);
+}
+
+.volumeStage {
+  position: relative;
+  aspect-ratio: 1 / 1.02;
+  display: grid;
+  place-items: center;
+}
+
+.canvas,
+.ghost {
+  width: 100%;
+  height: 100%;
+}
+
+.ghost {
+  padding: 6%;
+  opacity: 0.85;
+}
+
+.stageHint {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  pointer-events: none;
+}
+
+/* ---------- editorial ---------- */
+
+.editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding-block: var(--section-y);
+}
+
+.editorialArt {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.6vw, 1.6rem);
+  align-items: end;
+}
+
+.editorialFig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.2rem 0.6rem;
+  border-radius: var(--radius-m);
+  background: var(--ivory-deep);
+  transition: background 0.7s var(--ease-silk), transform 0.9s var(--ease-silk);
+}
+
+.editorialFig:hover {
+  background: var(--linen);
+  transform: translateY(-8px);
+}
+
+.editorialFig svg {
+  width: 100%;
+  height: clamp(160px, 22vw, 300px);
+}
+
+/* a peça do meio é a protagonista */
+.editorialArt > *:nth-child(2) {
+  transform: translateY(-8%);
+}
+
+.editorialArt > *:nth-child(2):hover {
+  transform: translateY(calc(-8% - 8px));
+}
+
+.editorialCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+
+.bigMarquee {
+  padding-block: clamp(1rem, 2vw, 2rem);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--malva-300);
+}
+
+/* ---------- manifesto ---------- */
+
+.manifesto {
+  padding-block: var(--section-y);
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.rule {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--ink);
+}
+
+.ruleNumber {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--malva-300);
+}
+
+.ruleTitle {
+  font-size: 1.36rem;
+}
+
+.ruleBody {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- convite ---------- */
+
+.invite {
+  position: relative;
+  padding-block: var(--section-y);
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-deep) 45%, var(--linen) 100%);
+}
+
+.inviteInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.inviteArt svg {
+  width: 100%;
+  height: clamp(300px, 42vh, 480px);
+}
+
+.inviteCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+}
+
+.inviteTitle {
+  font-size: var(--fs-h2);
+  max-width: 16ch;
+}
+
+.inviteActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 0.4rem;
+}
+
+.inviteLink {
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.inviteLink:hover {
+  color: var(--malva-500);
+  border-bottom-color: currentColor;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .sectionHead,
+  .volumeGrid,
+  .editorial,
+  .inviteInner {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHead {
+    align-items: start;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.4rem, 4vw, 2.4rem) clamp(1rem, 3vw, 2rem);
+  }
+
+  .grid > *:nth-child(2),
+  .grid > *:nth-child(4) {
+    transform: none;
+  }
+
+  .rules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .volumeStage {
+    aspect-ratio: 1 / 0.9;
+  }
+
+  .inviteArt {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 680px) {
+  .statementText {
+    max-width: 100%;
+  }
+
+  .grid,
+  .rules,
+  .editorialArt {
+    grid-template-columns: 1fr;
+  }
+
+  .editorialArt {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .editorialArt > * {
+    flex: 1;
+  }
+
+  .editorialArt > *:nth-child(2) {
+    transform: none;
+  }
+
+  .editorialFig span {
+    display: none;
+  }
+
+  .volumeSpecs {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

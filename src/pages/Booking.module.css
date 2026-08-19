@@ -1,0 +1,419 @@
+/* =========================================================
+   MALVA — Provador privado (formulário)
+   ========================================================= */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding-top: clamp(8rem, 18vh, 12rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+  max-width: 62ch;
+}
+
+.title {
+  font-size: var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.intro {
+  max-width: 54ch;
+}
+
+/* ---------- estrutura ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-bottom: var(--section-y);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+  min-width: 0;
+}
+
+.panel {
+  min-height: 26rem;
+}
+
+/* ---------- campos ---------- */
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.4vw, 2rem);
+  border: 0;
+}
+
+.legend {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  padding: 0;
+}
+
+.legend h2 {
+  font-size: var(--fs-h3);
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.groupLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.groupHint,
+.groupError {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  max-width: 58ch;
+}
+
+.groupHint {
+  color: var(--ink-mute);
+}
+
+.groupError {
+  color: var(--malva-600);
+}
+
+/* eco da data escolhida */
+.echo {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.1rem 1.3rem;
+  border-left: 1px solid var(--malva-300);
+  background: var(--malva-50);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+}
+
+.echo em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.24rem;
+  color: var(--ink);
+}
+
+/* ---------- seleção de peças ---------- */
+
+.pecas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.peca {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.9rem 0.6rem 1rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-m);
+  background: var(--ivory-deep);
+  text-align: center;
+  transition: border-color 0.45s var(--ease-silk), background 0.45s var(--ease-silk),
+    transform 0.45s var(--ease-silk);
+}
+
+.peca:hover {
+  border-color: var(--malva-200);
+  transform: translateY(-4px);
+}
+
+.pecaArt {
+  width: 100%;
+  height: clamp(78px, 9vw, 108px);
+  transition: transform 0.5s var(--ease-silk);
+}
+
+.peca:hover .pecaArt {
+  transform: scale(1.06);
+}
+
+.pecaName {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.pecaMeta {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* marcada: a etiqueta é costurada no canto */
+.pecaOn {
+  border-color: var(--ink);
+  background: var(--surface-raised);
+}
+
+.pecaOn::after {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--ivory);
+  font-size: 0.62rem;
+  line-height: 1;
+}
+
+.consents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 0.6rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- navegação do formulário ---------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- resumo lateral ---------- */
+
+.aside {
+  position: sticky;
+  top: clamp(5.5rem, 11vh, 7.5rem);
+}
+
+.asideInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: clamp(1.4rem, 2.6vw, 2.2rem);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-m);
+  background: linear-gradient(180deg, var(--surface-raised), var(--ivory-deep));
+  box-shadow: var(--shadow-lift);
+}
+
+.asideArt {
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.4rem;
+  border-radius: var(--radius-m);
+  background: var(--ivory-deep);
+}
+
+.asideMorph {
+  width: 100%;
+  height: clamp(200px, 26vh, 280px);
+  overflow: visible;
+}
+
+.asideCount {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--malva-500);
+  margin-bottom: 0.4rem;
+}
+
+.resumo {
+  display: grid;
+  gap: 0.55rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.resumo > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.resumo dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.resumo dd {
+  font-size: 0.94rem;
+  color: var(--ink-soft);
+}
+
+.asideNote {
+  font-size: 0.88rem;
+  color: var(--ink-mute);
+}
+
+.asideAddr {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* =========================================================
+   Confirmação
+   ========================================================= */
+
+.done {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  min-height: 82svh;
+  padding-top: clamp(8rem, 16vh, 11rem);
+  padding-bottom: var(--section-y);
+}
+
+.doneArt svg {
+  width: 100%;
+  height: clamp(280px, 44vh, 460px);
+}
+
+.doneCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+}
+
+.doneTitle {
+  font-size: var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.doneCopy strong {
+  font-weight: 400;
+  color: var(--malva-600);
+}
+
+.doneInfo {
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.doneInfo > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.doneInfo dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.doneInfo dd {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+}
+
+.doneActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .layout,
+  .done {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    position: static;
+    order: -1;
+  }
+
+  .asideMorph {
+    height: clamp(160px, 22vh, 220px);
+  }
+
+  .pecas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .doneArt {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 680px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .pecas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panel {
+    min-height: 0;
+  }
+
+  .nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .nav > span {
+    display: none;
+  }
+
+  .resumo > div,
+  .doneInfo > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

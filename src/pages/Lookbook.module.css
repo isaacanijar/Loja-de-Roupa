@@ -1,0 +1,348 @@
+/* =========================================================
+   MALVA — Lookbook Véspera
+   ========================================================= */
+
+.head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: clamp(8rem, 18vh, 13rem);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--fs-hero);
+  font-family: var(--font-logo);
+  line-height: 0.86;
+  letter-spacing: 0.02em;
+  color: var(--malva-500);
+}
+
+.intro {
+  max-width: 56ch;
+}
+
+.headRibbon {
+  width: 100%;
+  height: clamp(90px, 12vw, 160px);
+  margin-top: 1rem;
+  pointer-events: none;
+}
+
+.headRibbon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- trilho ---------- */
+
+.rail {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+/* ---------- peça ---------- */
+
+.art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.wash {
+  position: absolute;
+  inset: -12%;
+  z-index: -1;
+  transition: background 1.2s var(--ease-silk);
+  filter: blur(12px);
+}
+
+.morph {
+  width: 100%;
+  height: clamp(320px, 62svh, 620px);
+  overflow: visible;
+}
+
+/* ---------- legenda ---------- */
+
+.copy {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.counter {
+  position: absolute;
+  top: -3.6rem;
+  left: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  color: var(--ink-mute);
+}
+
+.counterNow {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--malva-400);
+}
+
+.counterAll {
+  font-size: 1rem;
+}
+
+.copyInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 44ch;
+}
+
+.lookTitle {
+  font-size: var(--fs-h2);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.caption {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+}
+
+.piece {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--line);
+}
+
+.pieceName {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--malva-500);
+  transition: color 0.35s ease;
+}
+
+.pieceName:hover {
+  color: var(--malva-600);
+}
+
+.pieceMeta {
+  font-size: var(--fs-small);
+  color: var(--ink-mute);
+  margin-bottom: 0.6rem;
+}
+
+/* ---------- régua de progresso ---------- */
+
+.progress {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1px auto;
+  gap: 1rem;
+  height: clamp(180px, 32svh, 280px);
+  align-self: center;
+}
+
+.progress::before {
+  content: '';
+  grid-column: 1;
+  width: 1px;
+  height: 100%;
+  background: var(--line);
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  background: var(--malva-400);
+}
+
+.marks {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.mark {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  opacity: 0.45;
+  transition: opacity 0.6s var(--ease-silk), color 0.6s ease;
+  white-space: nowrap;
+}
+
+.markOn {
+  opacity: 1;
+  color: var(--ink);
+}
+
+/* régua deitada — só aparece em tela estreita */
+.progressBar {
+  display: none;
+  width: 100%;
+  height: 1px;
+  margin-top: 1.2rem;
+  background: var(--line);
+}
+
+.progressBar span {
+  display: block;
+  height: 100%;
+  background: var(--malva-400);
+}
+
+.hint {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-wide);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  animation: breathe 3.4s var(--ease-in-out-soft) infinite;
+  pointer-events: none;
+}
+
+/* cada fatia empurra o trilho por uma tela — é o que dá curso à rolagem */
+.slice {
+  height: 100svh;
+}
+
+/* ---------- créditos ---------- */
+
+.credits {
+  padding-block: var(--section-y);
+}
+
+.creditsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 3rem);
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.creditsGrid p:last-child {
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  color: var(--ink-soft);
+}
+
+.creditsCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  padding-top: clamp(3rem, 7vw, 5rem);
+  text-align: center;
+}
+
+.creditsTitle {
+  font-size: var(--fs-h2);
+  max-width: 20ch;
+}
+
+.creditsActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .morph {
+    height: clamp(220px, 34svh, 340px);
+  }
+
+  .copy {
+    grid-template-columns: 1fr;
+  }
+
+  .counter {
+    position: static;
+    margin-bottom: 0.2rem;
+  }
+
+  .copyInner {
+    max-width: 100%;
+    gap: 0.7rem;
+  }
+
+  .caption {
+    font-size: 0.95rem;
+  }
+
+  /* a coluna vertical sai de cena; entra a régua deitada */
+  .progress {
+    display: none;
+  }
+
+  .progressBar {
+    display: block;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .creditsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .piece {
+    margin-top: 0.4rem;
+    padding-top: 0.9rem;
+  }
+
+  .pieceName {
+    font-size: 1.25rem;
+  }
+}
