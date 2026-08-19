@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
-import { LazySilkScene } from '@/components/three/Stage3D'
 import { Button } from '@/components/ui/Button'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { Marquee } from '@/components/ui/Marquee'
@@ -38,15 +37,14 @@ export function Hero() {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.scene} aria-hidden="true">
-        {/* o tecido de fundo e atmosfera, nao assunto: com a fotografia
-            da peca em cena ele entra bem mais discreto */}
-        <LazySilkScene
-          colors={['#FBF4F8', '#F2DDE8', '#CF92B3']}
-          amplitude={1.05}
-          opacity={0.3}
-        />
-      </div>
+      {/* Aqui havia um tecido de seda em WebGL. Ele custava a biblioteca
+          3D inteira no primeiro carregamento e um laço de render sem
+          pausa — sozinho, mais da metade dos quadros da página inicial.
+          Como desde a entrada da fotografia ele é só atmosfera atrás da
+          peça, o mesmo efeito passa a ser feito em CSS, de graça. O 3D
+          continua no site, na seção de volume, carregado só quando
+          entra na tela. */}
+      <div className={styles.scene} aria-hidden="true" />
 
       <div className={['shell', styles.grid].join(' ')}>
         <motion.div className={styles.copy} style={reduced ? undefined : { y: copyY }}>

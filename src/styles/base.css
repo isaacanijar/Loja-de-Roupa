@@ -31,15 +31,20 @@ body {
   overflow-x: hidden;
 }
 
-/* Papel: um grão finíssimo de linho por baixo de tudo */
+/* Papel: um grão finíssimo de linho por baixo de tudo.
+
+   Sem `mix-blend-mode`: a camada é fixa e cobre a tela inteira, então
+   misturar cada pixel com o que está atrás obrigava o compositor a
+   refazer a tela toda a cada quadro de rolagem — sozinho isso custava
+   cerca de um terço dos quadros em todas as páginas. Com alfa simples
+   o papel continua lá e a rolagem volta a ser de graça. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
+  opacity: 0.38;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
 }
 

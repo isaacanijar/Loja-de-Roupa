@@ -35,14 +35,20 @@
   animation: breathe 18s var(--ease-in-out-soft) infinite;
 }
 
+/* A seda do fundo: três manchas de cor sobrepostas, à deriva lenta.
+   Não há canvas nem laço de render — só composição. */
 .scene {
   position: absolute;
   inset: -6% -10% 0 22%;
   z-index: -1;
   pointer-events: none;
-  /* o plano de seda é maior que a moldura do canvas, então o
-     esmaecido do próprio shader fica fora de quadro e sobra um corte
-     reto. A máscara devolve a borda difusa — tecido não tem aresta. */
+  opacity: 0.75;
+  background:
+    radial-gradient(46% 38% at 34% 30%, rgba(242, 221, 232, 0.95), transparent 70%),
+    radial-gradient(52% 44% at 68% 52%, rgba(207, 146, 179, 0.5), transparent 72%),
+    radial-gradient(44% 40% at 48% 78%, rgba(230, 208, 179, 0.42), transparent 74%);
+  filter: blur(18px);
+  animation: silk-drift 26s var(--ease-in-out-soft) infinite;
   -webkit-mask-image: radial-gradient(78% 72% at 62% 42%, #000 34%, transparent 82%);
   mask-image: radial-gradient(78% 72% at 62% 42%, #000 34%, transparent 82%);
 }
