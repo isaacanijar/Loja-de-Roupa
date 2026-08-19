@@ -72,3 +72,17 @@
     animation: none;
   }
 }
+
+/* O keyframe mora aqui, e não num arquivo global, de propósito: o CSS
+   Modules renomeia também os nomes de animação, então uma referência a
+   um keyframe declarado fora do módulo vira um nome inexistente — a
+   regra é aplicada e a animação simplesmente não acontece, sem erro
+   nenhum. Manter os dois lados no mesmo arquivo é o que garante o par. */
+@keyframes marquee-run {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

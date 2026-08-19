@@ -59,7 +59,7 @@ export default function Home() {
       <section className={['shell', styles.vitrine].join(' ')}>
         <div className={styles.sectionHead}>
           <div>
-            <p className="eyebrow">01 — O acervo</p>
+            <p className="eyebrow">O acervo</p>
             <TextReveal as="h2" className={styles.sectionTitle}>
               Peças em série curta
             </TextReveal>
@@ -93,7 +93,7 @@ export default function Home() {
       <section className={['theme-ink', styles.volume].join(' ')}>
         <div className={['shell', styles.volumeGrid].join(' ')}>
           <div className={styles.volumeCopy}>
-            <p className="eyebrow">02 — Volume</p>
+            <p className="eyebrow">Volume</p>
             <TextReveal as="h2" className={styles.sectionTitle}>
               A peça por todos os lados
             </TextReveal>
@@ -173,7 +173,7 @@ export default function Home() {
         </div>
 
         <div className={styles.editorialCopy}>
-          <p className="eyebrow">03 — Editorial</p>
+          <p className="eyebrow">Editorial</p>
           <TextReveal as="h2" className={styles.sectionTitle}>
             Véspera
           </TextReveal>
@@ -201,7 +201,7 @@ export default function Home() {
       <section className={['shell', styles.manifesto].join(' ')}>
         <div className={styles.sectionHead}>
           <div>
-            <p className="eyebrow">04 — O ateliê</p>
+            <p className="eyebrow">O ateliê</p>
             <TextReveal as="h2" className={styles.sectionTitle}>
               Quatro regras da casa
             </TextReveal>
@@ -239,7 +239,7 @@ export default function Home() {
           </Reveal>
 
           <div className={styles.inviteCopy}>
-            <p className="eyebrow">05 — Provador privado</p>
+            <p className="eyebrow">Provador privado</p>
             <TextReveal as="h2" className={styles.inviteTitle}>
               Uma cliente por vez, o acervo inteiro na arara
             </TextReveal>
