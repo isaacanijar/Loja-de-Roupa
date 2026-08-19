@@ -1,6 +1,6 @@
-import { useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { ContactShadows, OrbitControls } from '@react-three/drei'
+import { ContactShadows, OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { SHAPES, type GarmentShape, type ShapeKey } from '@/lib/garment'
 import type { Colorway } from '@/types/catalog'
@@ -44,9 +44,26 @@ function profileOf(g: GarmentShape): THREE.Vector2[] {
 interface BodyProps {
   shape: GarmentShape
   colorway: Colorway
+  /** retalho do tecido da peca, recortado da fotografia */
+  photo: string
 }
 
-function Garment({ shape, colorway }: BodyProps) {
+function Garment({ shape, colorway, photo }: BodyProps) {
+  /* O tecido não é pintado: vem de um retalho recortado da fotografia
+     da própria peça (ver lib/photo.ts). O ladrilho é espelhado e em
+     número PAR de repetições — é isso que faz a volta fechar: em u=1 a
+     amostra coincide com a de u=0, então não sobra a linha de costura
+     que aparecia ao girar. */
+  const fabric = useTexture(photo)
+  useMemo(() => {
+    fabric.wrapS = THREE.MirroredRepeatWrapping
+    fabric.wrapT = THREE.MirroredRepeatWrapping
+    fabric.repeat.set(2, 2)
+    fabric.colorSpace = THREE.SRGBColorSpace
+    fabric.anisotropy = 8
+    fabric.needsUpdate = true
+  }, [fabric])
+
   const geometry = useMemo(() => {
     const geo = new THREE.LatheGeometry(profileOf(shape), 96)
     geo.computeVertexNormals()
@@ -75,7 +92,9 @@ function Garment({ shape, colorway }: BodyProps) {
   const material = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(colorway.hex),
+        map: fabric,
+        // branco: quem da a cor e a fotografia, nao o material
+        color: new THREE.Color('#ffffff'),
         sheen: 1,
         sheenColor: new THREE.Color(colorway.sheen),
         sheenRoughness: 0.45,
@@ -85,7 +104,7 @@ function Garment({ shape, colorway }: BodyProps) {
         clearcoatRoughness: 0.6,
         side: THREE.DoubleSide,
       }),
-    [colorway],
+    [fabric, colorway],
   )
 
   return (
@@ -132,6 +151,8 @@ function Rig({ still }: { still: boolean }) {
 interface DressViewerProps {
   shape: ShapeKey | GarmentShape
   colorway: Colorway
+  /** retalho do tecido no tom escolhido (ver swatchOf) */
+  photo: string
   className?: string
   /** deixa a cliente girar a peça com o dedo/mouse */
   interactive?: boolean
@@ -140,6 +161,7 @@ interface DressViewerProps {
 export default function DressViewer({
   shape,
   colorway,
+  photo,
   className,
   interactive = true,
 }: DressViewerProps) {
@@ -164,7 +186,9 @@ export default function DressViewer({
       <directionalLight position={[-3, 1.5, -2]} intensity={0.55} color="#E3B7CE" />
       <pointLight position={[0, -2, 2.5]} intensity={0.4} color="#E6D0B3" />
 
-      <Garment shape={g} colorway={colorway} />
+      <Suspense fallback={null}>
+        <Garment shape={g} colorway={colorway} photo={photo} />
+      </Suspense>
 
       <ContactShadows
         position={[0, hemY - 0.02, 0]}

@@ -21,9 +21,7 @@
 }
 
 .morph {
-  width: 100%;
-  height: clamp(260px, 42vh, 440px);
-  overflow: visible;
+  width: min(100%, 330px);
 }
 
 .copy {
@@ -77,6 +75,6 @@
   }
 
   .morph {
-    height: clamp(200px, 30vh, 280px);
+    width: min(100%, 240px);
   }
 }

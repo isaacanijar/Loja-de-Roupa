@@ -123,9 +123,8 @@
 }
 
 .morph {
-  width: 100%;
-  height: clamp(340px, 58vh, 620px);
-  overflow: visible;
+  width: min(100%, 430px);
+  margin-inline: auto;
 }
 
 .caption {
@@ -271,7 +270,7 @@
   }
 
   .morph {
-    height: clamp(280px, 42vh, 420px);
+    width: min(100%, 300px);
   }
 
   .cue {

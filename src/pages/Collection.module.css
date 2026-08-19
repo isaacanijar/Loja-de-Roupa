@@ -32,9 +32,7 @@
 }
 
 .headMorph {
-  width: 100%;
-  height: clamp(240px, 34vh, 380px);
-  overflow: visible;
+  width: min(100%, 320px);
 }
 
 /* ---------- barra de filtros ---------- */
@@ -200,7 +198,7 @@
   }
 
   .headMorph {
-    height: clamp(200px, 26vh, 280px);
+    width: min(100%, 240px);
   }
 
   .grid {

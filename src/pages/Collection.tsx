@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { Page } from '@/components/layout/Page'
 import { ProductCard } from '@/components/product/ProductCard'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { Reveal } from '@/components/ui/Reveal'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { CATEGORIES, PRODUCTS, type CategoryFilter } from '@/data/products'
@@ -50,10 +50,7 @@ export default function Collection() {
   /* Um quadro por categoria — o morph do cabeçalho lê o índice atual. */
   const frames = useMemo(
     () =>
-      CATEGORIES.map((c) => {
-        const product = PRODUCTS.find((p) => p.slug === INDEX_FRAMES[c.key])!
-        return { shape: product.shape, colorway: product.colorways[0] }
-      }),
+      CATEGORIES.map((c) => frameOf(PRODUCTS.find((p) => p.slug === INDEX_FRAMES[c.key])!)),
     [],
   )
 
@@ -78,10 +75,11 @@ export default function Collection() {
         </div>
 
         <Reveal delay={0.2} className={styles.headArt}>
-          <GarmentMorph
+          <PhotoMorph
             frames={frames}
             index={frameIndex < 0 ? 0 : frameIndex}
-            duration={1.35}
+            duration={1.1}
+            eager
             className={styles.headMorph}
           />
         </Reveal>

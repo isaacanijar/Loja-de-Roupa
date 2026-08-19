@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { LazySilkScene } from '@/components/three/Stage3D'
 import { Button } from '@/components/ui/Button'
 import { TextReveal } from '@/components/ui/TextReveal'
@@ -14,7 +14,7 @@ import styles from './Hero.module.css'
    com a silhueta — mesma cadência, mesmo tempo. */
 const HERO = ['vestido-alba', 'trench-verao-tardio', 'blusa-serena', 'vestido-noturno']
   .map((slug) => PRODUCTS.find((p) => p.slug === slug)!)
-  .map((p) => ({ product: p, shape: p.shape, colorway: p.colorways[0] }))
+  .map((p) => ({ product: p, colorway: p.colorways[0], frame: frameOf(p) }))
 
 const CYCLE = 4600
 
@@ -39,10 +39,12 @@ export function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.scene} aria-hidden="true">
+        {/* o tecido de fundo e atmosfera, nao assunto: com a fotografia
+            da peca em cena ele entra bem mais discreto */}
         <LazySilkScene
-          colors={['#F2DDE8', '#CF92B3', '#7D4566']}
+          colors={['#FBF4F8', '#F2DDE8', '#CF92B3']}
           amplitude={1.05}
-          opacity={0.5}
+          opacity={0.3}
         />
       </div>
 
@@ -94,10 +96,11 @@ export function Hero() {
         </motion.div>
 
         <motion.div className={styles.art} style={reduced ? undefined : { y: artY, opacity: fade }}>
-          <GarmentMorph
-            frames={HERO}
+          <PhotoMorph
+            frames={HERO.map((f) => f.frame)}
             index={index}
-            duration={1.6}
+            duration={1.2}
+            eager
             className={styles.morph}
           />
 

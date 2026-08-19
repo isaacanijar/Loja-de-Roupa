@@ -150,8 +150,8 @@ export function Footer() {
       <div className={['shell', styles.base].join(' ')}>
         <p>© {year} MALVA Ateliê Ltda · CNPJ 00.000.000/0001-00</p>
         <p className={styles.made}>
-          Todas as peças desenhadas e costuradas em São Paulo. Nenhuma imagem deste site é
-          fotografia: cada peça é desenhada a partir da própria modelagem.
+          Todas as peças desenhadas e costuradas em São Paulo. Cada peça é fotografada uma vez
+          por banho de cor, em manequim invisível, sem retoque de silhueta.
         </p>
       </div>
     </footer>

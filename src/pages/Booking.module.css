@@ -239,9 +239,7 @@
 }
 
 .asideMorph {
-  width: 100%;
-  height: clamp(200px, 26vh, 280px);
-  overflow: visible;
+  width: min(100%, 240px);
 }
 
 .asideCount {
@@ -307,9 +305,8 @@
   padding-bottom: var(--section-y);
 }
 
-.doneArt svg {
-  width: 100%;
-  height: clamp(280px, 44vh, 460px);
+.donePhoto {
+  width: min(100%, 330px);
 }
 
 .doneCopy {
@@ -379,7 +376,7 @@
   }
 
   .asideMorph {
-    height: clamp(160px, 22vh, 220px);
+    width: min(100%, 200px);
   }
 
   .pecas {

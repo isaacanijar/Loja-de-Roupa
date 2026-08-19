@@ -2,18 +2,17 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { Page } from '@/components/layout/Page'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { SilkRibbon } from '@/components/art/SilkRibbon'
 import { Button } from '@/components/ui/Button'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { LOOKS } from '@/data/looks'
 import { getProduct } from '@/data/products'
 import { money } from '@/lib/format'
-import { photoOf } from '@/lib/photo'
 import { useReducedMotion } from '@/hooks/useMediaQuery'
 import styles from './Lookbook.module.css'
 
-const FRAMES = LOOKS.map((l) => ({ shape: l.shape, colorway: l.colorway }))
+const FRAMES = LOOKS.map((l) => frameOf(getProduct(l.productSlug)!, l.colorway))
 
 export default function Lookbook() {
   const trilho = useRef<HTMLDivElement>(null)
@@ -50,8 +49,8 @@ export default function Lookbook() {
         </TextReveal>
         <p className={['lede', styles.intro].join(' ')}>
           Cinco looks em um único dia, das seis e quarenta e sete da manhã até a hora de sair. Role
-          a página: a peça não é trocada por outra imagem — é a mesma modelagem mudando de medida,
-          o ombro subindo, a manga crescendo, a barra abrindo.
+          a página: cada peça entra como foi fotografada no ateliê, e a passagem de uma para a
+          outra é o tecido assentando — sem corte seco, sem transição de catálogo.
         </p>
         <div className={styles.headRibbon} aria-hidden="true">
           <SilkRibbon opacity={0.6} amplitude={22} thickness={26} />
@@ -76,10 +75,11 @@ export default function Lookbook() {
                 }}
                 aria-hidden="true"
               />
-              <GarmentMorph
+              <PhotoMorph
                 frames={FRAMES}
                 index={index}
-                duration={1.5}
+                duration={1.2}
+                eager
                 className={styles.morph}
               />
             </div>
@@ -106,19 +106,6 @@ export default function Lookbook() {
 
                   {produto && (
                     <div className={styles.piece}>
-                      {/* a arte ao lado é a modelagem em transformação;
-                          aqui entra a peça como ela é, fotografada */}
-                      <Link to={'/produto/' + produto.slug} className={styles.pieceThumb}>
-                        <img
-                          src={photoOf(produto, look.colorway)}
-                          alt={produto.name + ' em ' + look.colorway.name}
-                          width={900}
-                          height={1200}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </Link>
-
                       <div className={styles.pieceInfo}>
                         <span className="eyebrow">Peça em cena</span>
                         <Link to={'/produto/' + produto.slug} className={styles.pieceName}>

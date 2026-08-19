@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { Wordmark } from '@/components/ui/Wordmark'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
+import { PRODUCTS } from '@/data/products'
 import { useCart } from '@/context/CartContext'
 import { useLockScroll } from '@/hooks/useLockScroll'
 import styles from './Header.module.css'
@@ -14,11 +15,10 @@ export const NAV = [
   { to: '/provador', label: 'Provador privado' },
 ]
 
-const MENU_FRAMES = [
-  { shape: 'slip' as const, colorway: { name: 'Malva', hex: '#CF92B3', sheen: '#F2DDE8', shade: '#9D5B81' } },
-  { shape: 'trench' as const, colorway: { name: 'Areia', hex: '#E3D5CB', sheen: '#F7EFE8', shade: '#B7A49A' } },
-  { shape: 'gode' as const, colorway: { name: 'Ameixa', hex: '#4A3340', sheen: '#8A6C7C', shade: '#241119' } },
-]
+/* Tres pecas passam no fundo do menu aberto. */
+const MENU_FRAMES = ['vestido-alba', 'trench-verao-tardio', 'vestido-noturno']
+  .map((slug) => PRODUCTS.find((p) => p.slug === slug)!)
+  .map((p) => frameOf(p))
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -115,7 +115,7 @@ export function Header() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3, duration: 1 }}
               >
-                <GarmentMorph frames={MENU_FRAMES} interval={2600} duration={1.2} />
+                <PhotoMorph frames={MENU_FRAMES} interval={3000} duration={1.1} />
               </motion.div>
             </div>
           </motion.div>

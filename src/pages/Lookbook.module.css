@@ -78,9 +78,8 @@
 }
 
 .morph {
-  width: 100%;
-  height: clamp(320px, 62svh, 620px);
-  overflow: visible;
+  height: min(62svh, 540px);
+  width: auto;
 }
 
 /* ---------- legenda ---------- */
@@ -325,7 +324,7 @@
   }
 
   .morph {
-    height: clamp(220px, 34svh, 340px);
+    height: min(34svh, 300px);
   }
 
   .copy {

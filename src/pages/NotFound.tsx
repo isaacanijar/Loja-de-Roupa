@@ -1,17 +1,18 @@
 import { Page } from '@/components/layout/Page'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { Button } from '@/components/ui/Button'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { NAV } from '@/components/layout/Header'
+import { getProduct } from '@/data/products'
 import { Link } from 'react-router-dom'
 import styles from './NotFound.module.css'
 
 /* A peça continua trocando de forma — como quem procura na arara
    e não encontra o que veio buscar. */
 const FRAMES = [
-  { shape: 'slip' as const, colorway: { name: 'Pérola', hex: '#EFE4DC', sheen: '#FFFBF7', shade: '#CDB9AC' } },
-  { shape: 'kimono' as const, colorway: { name: 'Malva', hex: '#CF92B3', sheen: '#F2DDE8', shade: '#9D5B81' } },
-  { shape: 'trench' as const, colorway: { name: 'Areia', hex: '#E3D5CB', sheen: '#F7EFE8', shade: '#B7A49A' } },
+  frameOf(getProduct('vestido-alba')!),
+  frameOf(getProduct('kimono-lumen')!, getProduct('kimono-lumen')!.colorways[1]),
+  frameOf(getProduct('trench-verao-tardio')!),
 ]
 
 export default function NotFound() {
@@ -19,7 +20,7 @@ export default function NotFound() {
     <Page title="Página não encontrada">
       <section className={['shell', styles.wrap].join(' ')}>
         <div className={styles.art}>
-          <GarmentMorph frames={FRAMES} interval={2800} duration={1.3} className={styles.morph} />
+          <PhotoMorph frames={FRAMES} interval={3000} duration={1.1} className={styles.morph} />
         </div>
 
         <div className={styles.copy}>

@@ -4,7 +4,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Page } from '@/components/layout/Page'
 import { Hero } from '@/components/sections/Hero'
 import { ProductCard } from '@/components/product/ProductCard'
-import { GarmentFigure } from '@/components/art/GarmentFigure'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
+import { swatchOf } from '@/lib/photo'
 import { SilkRibbon } from '@/components/art/SilkRibbon'
 import { LazyDressViewer } from '@/components/three/Stage3D'
 import { Button } from '@/components/ui/Button'
@@ -97,9 +98,9 @@ export default function Home() {
               A peça por todos os lados
             </TextReveal>
             <p className={['lede', styles.volumeLede].join(' ')}>
-              A mesma modelagem que desenha a peça no papel gera o volume aqui: o perfil da lateral
-              — decote, busto, cintura, quadril, barra — girado em torno do eixo. Nada de fotografia.
-              Gire com o dedo, troque a cor, veja como a saia abre.
+              O volume vem da modelagem — o perfil da lateral, de decote a barra, girado em torno
+              do eixo — e o tecido vem da fotografia da própria peça, amostrado do pano e aplicado
+              sobre a forma. Gire com o dedo, troque a cor, veja como a saia abre.
             </p>
 
             <div className={styles.volumeSpecs}>
@@ -144,14 +145,10 @@ export default function Home() {
             <LazyDressViewer
               shape={ESTRELA.shape}
               colorway={colorway}
+              photo={swatchOf(ESTRELA, colorway)}
               className={styles.canvas}
               placeholder={
-                <GarmentFigure
-                  shape={ESTRELA.shape}
-                  colorway={colorway}
-                  alive
-                  className={styles.ghost}
-                />
+                <PhotoMorph frames={[frameOf(ESTRELA, colorway)]} className={styles.ghost} />
               }
             />
             <p className={styles.stageHint}>arraste para girar</p>
@@ -166,7 +163,10 @@ export default function Home() {
         <div className={styles.editorialArt}>
           {LOOKS.slice(0, 3).map((look, i) => (
             <Reveal key={look.id} delay={i * 0.12} className={styles.editorialFig}>
-              <GarmentFigure shape={look.shape} colorway={look.colorway} alive={i === 1} />
+              <PhotoMorph
+                frames={[frameOf(getProduct(look.productSlug)!, look.colorway)]}
+                className={styles.editorialPhoto}
+              />
               <span className="eyebrow">{look.subtitle}</span>
             </Reveal>
           ))}
@@ -179,8 +179,8 @@ export default function Home() {
           </TextReveal>
           <p className="lede">
             Cinco looks fotografados em um único dia, do primeiro claro às seis e quarenta e sete
-            até a hora de sair. No lookbook, uma peça vira a outra enquanto você rola — é a mesma
-            modelagem mudando de medida, não um corte entre duas imagens.
+            até a hora de sair. No lookbook, cada peça entra em cena conforme você rola, e a
+            passagem de uma para a outra é o tecido assentando.
           </p>
           <Button to="/lookbook" variant="outline" size="lg">
             Percorrer o editorial
@@ -232,11 +232,9 @@ export default function Home() {
       <section className={styles.invite}>
         <div className={['shell', styles.inviteInner].join(' ')}>
           <Reveal className={styles.inviteArt}>
-            <GarmentFigure
-              shape="slip"
-              colorway={{ name: 'Malva', hex: '#CF92B3', sheen: '#F2DDE8', shade: '#9D5B81' }}
-              alive
-              hanger
+            <PhotoMorph
+              frames={[frameOf(getProduct('vestido-alba')!, getProduct('vestido-alba')!.colorways[1])]}
+              className={styles.invitePhoto}
             />
           </Reveal>
 

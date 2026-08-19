@@ -1,0 +1,31 @@
+/* =========================================================
+   MALVA — Passagem entre fotografias
+
+   As fotos ficam empilhadas no mesmo lugar: a que sai e a que
+   entra ocupam exatamente a mesma área, então a troca acontece
+   sem a peça deslizar nem o quadro mudar de tamanho.
+   ========================================================= */
+
+.stack {
+  position: relative;
+  width: 100%;
+  /* A proporcao e do negativo, nao do espaco disponivel: assim a peca
+     nunca e cortada no ombro nem na barra. Quem usa o componente fixa
+     ou a largura ou a altura — a outra medida sai daqui. */
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-m);
+  background: var(--ivory-deep);
+  isolation: isolate;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  /* altura explícita: os atributos width/height do <img> entrariam
+     como altura fixa e passariam por cima do inset */
+  height: 100%;
+  object-fit: cover;
+  will-change: opacity, transform, filter;
+}

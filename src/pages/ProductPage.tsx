@@ -11,7 +11,7 @@ import { TextReveal } from '@/components/ui/TextReveal'
 import { useCart } from '@/context/CartContext'
 import { getProduct, relatedProducts } from '@/data/products'
 import { installments, money } from '@/lib/format'
-import { photoOf } from '@/lib/photo'
+import { photoOf, swatchOf } from '@/lib/photo'
 import styles from './ProductPage.module.css'
 
 type View = 'foto' | 'desenho' | 'volume'
@@ -132,13 +132,14 @@ export default function ProductPage() {
                   <LazyDressViewer
                     shape={product.shape}
                     colorway={colorway}
+                    photo={swatchOf(product, colorway)}
                     className={styles.canvas}
                     placeholder={
-                      <GarmentFigure
-                        shape={product.shape}
-                        colorway={colorway}
-                        stitchOnView={false}
-                        className={styles.figure}
+                      <img
+                        src={photoOf(product, colorway)}
+                        alt=""
+                        className={styles.photo}
+                        decoding="async"
                       />
                     }
                   />

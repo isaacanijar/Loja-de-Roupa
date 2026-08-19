@@ -4,8 +4,7 @@ import { Page } from '@/components/layout/Page'
 import { Field, TextArea } from '@/components/form/Field'
 import { CheckLine, PillGroup, SelectField } from '@/components/form/Choice'
 import { StepBar } from '@/components/form/StepBar'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
-import { GarmentFigure } from '@/components/art/GarmentFigure'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { Button } from '@/components/ui/Button'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { PRODUCTS } from '@/data/products'
@@ -89,7 +88,7 @@ export default function Booking() {
   const araras = useMemo(() => {
     const escolhidas = PRODUCTS.filter((p) => form.pecas.includes(p.name))
     const base = escolhidas.length > 0 ? escolhidas : [PRODUCTS[0]]
-    return base.map((p) => ({ shape: p.shape, colorway: p.colorways[0] }))
+    return base.map((p) => frameOf(p))
   }, [form.pecas])
 
   const protocolo = bookingCode(form.email + form.data + form.horario)
@@ -107,11 +106,9 @@ export default function Booking() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <GarmentFigure
-              shape="slip"
-              colorway={{ name: 'Malva', hex: '#CF92B3', sheen: '#F2DDE8', shade: '#9D5B81' }}
-              alive
-              hanger
+            <PhotoMorph
+              frames={[frameOf(PRODUCTS[0], PRODUCTS[0].colorways[1])]}
+              className={styles.donePhoto}
             />
           </motion.div>
 
@@ -469,10 +466,10 @@ export default function Booking() {
         <aside className={styles.aside}>
           <div className={styles.asideInner}>
             <div className={styles.asideArt}>
-              <GarmentMorph
+              <PhotoMorph
                 frames={araras}
-                interval={3200}
-                duration={1.3}
+                interval={3400}
+                duration={1.1}
                 className={styles.asideMorph}
               />
             </div>

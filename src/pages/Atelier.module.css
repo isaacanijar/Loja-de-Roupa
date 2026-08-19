@@ -197,9 +197,7 @@
 }
 
 .methodMorph {
-  width: 100%;
-  height: clamp(280px, 44vh, 460px);
-  overflow: visible;
+  width: min(100%, 360px);
 }
 
 .methodCopy {
@@ -342,9 +340,8 @@
   gap: clamp(2rem, 6vw, 6rem);
 }
 
-.visitArt svg {
-  width: 100%;
-  height: clamp(280px, 40vh, 440px);
+.visitPhoto {
+  width: min(100%, 340px);
 }
 
 .visitCopy {

@@ -1,22 +1,22 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Page } from '@/components/layout/Page'
-import { GarmentFigure } from '@/components/art/GarmentFigure'
-import { GarmentMorph } from '@/components/art/GarmentMorph'
+import { PhotoMorph, frameOf } from '@/components/art/PhotoMorph'
 import { SilkRibbon } from '@/components/art/SilkRibbon'
 import { Button } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
 import { TextReveal } from '@/components/ui/TextReveal'
 import { MalvaMark } from '@/components/ui/Wordmark'
 import { ATELIER_INFO, HANDS, MANIFESTO, TIMELINE } from '@/data/atelier'
+import { getProduct } from '@/data/products'
 import { initials } from '@/lib/format'
 import styles from './Atelier.module.css'
 
 /* As três modelagens que abriram cada fase da casa. */
 const FASES = [
-  { shape: 'slip' as const, colorway: { name: 'Pérola', hex: '#EFE4DC', sheen: '#FFFBF7', shade: '#CDB9AC' } },
-  { shape: 'alfaiataria' as const, colorway: { name: 'Areia', hex: '#E3D5CB', sheen: '#F7EFE8', shade: '#B7A49A' } },
-  { shape: 'gode' as const, colorway: { name: 'Malva', hex: '#CF92B3', sheen: '#F2DDE8', shade: '#9D5B81' } },
+  frameOf(getProduct('vestido-alba')!),
+  frameOf(getProduct('blazer-longo-atlas')!, getProduct('blazer-longo-atlas')!.colorways[1]),
+  frameOf(getProduct('vestido-noturno')!, getProduct('vestido-noturno')!.colorways[1]),
 ]
 
 export default function Atelier() {
@@ -111,7 +111,7 @@ export default function Atelier() {
           --------------------------------------------------------- */}
       <section className={['shell', styles.method].join(' ')}>
         <div className={styles.methodArt}>
-          <GarmentMorph frames={FASES} index={fase} duration={1.4} className={styles.methodMorph} />
+          <PhotoMorph frames={FASES} index={fase} duration={1.1} className={styles.methodMorph} />
         </div>
 
         <div className={styles.methodCopy}>
@@ -191,11 +191,9 @@ export default function Atelier() {
       <section className={styles.visit}>
         <div className={['shell', styles.visitInner].join(' ')}>
           <Reveal className={styles.visitArt}>
-            <GarmentFigure
-              shape="kimono"
-              colorway={{ name: 'Ouro pálido', hex: '#E6D0B3', sheen: '#FBF0DC', shade: '#C8A06A' }}
-              alive
-              hanger
+            <PhotoMorph
+              frames={[frameOf(getProduct('kimono-lumen')!)]}
+              className={styles.visitPhoto}
             />
           </Reveal>
 
