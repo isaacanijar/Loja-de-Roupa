@@ -56,6 +56,10 @@ export function Header() {
           </nav>
 
           <div className={styles.actions}>
+            <Link to="/cadastro" className={styles.account}>
+              Cadastre-se
+            </Link>
+
             <button type="button" className={styles.bag} onClick={open}>
               <span>Sacola</span>
               <span className={styles.count} key={count}>

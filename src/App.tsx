@@ -12,6 +12,7 @@ import ProductPage from '@/pages/ProductPage'
 import Lookbook from '@/pages/Lookbook'
 import Atelier from '@/pages/Atelier'
 import Booking from '@/pages/Booking'
+import Register from '@/pages/Register'
 import NotFound from '@/pages/NotFound'
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/lookbook" element={<Lookbook />} />
         <Route path="/atelie" element={<Atelier />} />
         <Route path="/provador" element={<Booking />} />
+        <Route path="/cadastro" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

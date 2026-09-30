@@ -16,7 +16,7 @@ interface BaseProps {
 }
 
 interface InputProps extends BaseProps {
-  type?: 'text' | 'email' | 'tel' | 'date' | 'number'
+  type?: 'text' | 'email' | 'tel' | 'date' | 'number' | 'password'
   min?: string
   max?: string
   inputMode?: 'text' | 'numeric' | 'tel' | 'email'

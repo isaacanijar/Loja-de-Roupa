@@ -1,0 +1,442 @@
+/* =========================================================
+   MALVA — Cadastro de cliente
+   ========================================================= */
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.45fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: clamp(8rem, 18vh, 12rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.headCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.title {
+  font-size: var(--fs-display);
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+}
+
+.intro {
+  max-width: 54ch;
+}
+
+.headArt {
+  display: grid;
+  place-items: center;
+}
+
+.headPhoto {
+  width: min(100%, 260px);
+}
+
+/* ---------- estrutura ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-bottom: var(--section-y);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.2rem);
+  min-width: 0;
+}
+
+/* ---------- bloco ---------- */
+
+.bloco {
+  border: 0;
+  padding: 0;
+}
+
+.legend {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 0 1.4rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.legendNum {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--malva-300);
+}
+
+.legend strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.legend em {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-mute);
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.4vw, 2rem);
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+/* ---------- grupo de estilos ---------- */
+
+.grupoRotulo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.grupoErro {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--malva-600);
+}
+
+.estilos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.estilo {
+  padding: 0.62rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  transition: border-color 0.4s var(--ease-silk), background 0.4s var(--ease-silk),
+    color 0.4s ease;
+}
+
+.estilo:hover {
+  border-color: var(--malva-300);
+  color: var(--ink);
+}
+
+.estiloOn {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+/* ---------- força da senha ---------- */
+
+.forca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+}
+
+.forcaTrilho {
+  flex: 1;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--sand);
+  overflow: hidden;
+}
+
+.forcaBarra {
+  display: block;
+  height: 100%;
+  background: var(--malva-300);
+}
+
+/* a cor sobe junto com a força */
+.forcaBarra[data-nivel='2'] {
+  background: var(--gold);
+}
+.forcaBarra[data-nivel='3'] {
+  background: var(--malva-400);
+}
+.forcaBarra[data-nivel='4'] {
+  background: var(--sage);
+}
+
+.forca em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+
+.consentimentos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 0.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- rodapé do formulário ---------- */
+
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.progresso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  max-width: 22rem;
+}
+
+.progressoTrilho {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--sand);
+  overflow: hidden;
+}
+
+.progressoTrilho i {
+  display: block;
+  height: 100%;
+  background: var(--malva-400);
+}
+
+.aviso {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--malva-600);
+}
+
+/* ---------- coluna lateral ---------- */
+
+.aside {
+  position: sticky;
+  top: clamp(5.5rem, 11vh, 7.5rem);
+}
+
+.asideInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: clamp(1.4rem, 2.6vw, 2.2rem);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-m);
+  background: linear-gradient(180deg, var(--surface-raised), var(--ivory-deep));
+  box-shadow: var(--shadow-lift);
+}
+
+.vantagens {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.vantagens li {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+.vantagens li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.vantagens h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.vantagens p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.asideNota {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.92rem;
+  color: var(--ink-mute);
+}
+
+.asideLink {
+  color: var(--malva-500);
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.35s ease;
+}
+
+.asideLink:hover {
+  border-bottom-color: currentColor;
+}
+
+.asideAddr {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.asideAcervo {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* =========================================================
+   Ficha aberta
+   ========================================================= */
+
+.done {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  min-height: 82svh;
+  padding-top: clamp(8rem, 16vh, 11rem);
+  padding-bottom: var(--section-y);
+}
+
+.donePhoto {
+  width: min(100%, 330px);
+}
+
+.doneCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+}
+
+.doneTitle {
+  font-size: var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.doneCopy strong {
+  font-weight: 400;
+  color: var(--malva-600);
+}
+
+.resumo {
+  display: grid;
+  gap: 0.85rem;
+  width: 100%;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.resumo > div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.resumo dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.resumo dd {
+  font-size: 0.98rem;
+  color: var(--ink-soft);
+}
+
+.doneActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* =========================================================
+   Adaptações
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .head,
+  .layout,
+  .done {
+    grid-template-columns: 1fr;
+  }
+
+  .headArt {
+    order: -1;
+  }
+
+  .headPhoto {
+    width: min(100%, 200px);
+  }
+
+  .aside {
+    position: static;
+    order: -1;
+  }
+
+  .doneArt {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 680px) {
+  .campos {
+    grid-template-columns: 1fr;
+  }
+
+  .rodape {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+
+  .progresso {
+    max-width: 100%;
+  }
+
+  .resumo > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

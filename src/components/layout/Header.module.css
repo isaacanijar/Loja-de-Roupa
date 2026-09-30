@@ -227,3 +227,23 @@
     display: none;
   }
 }
+
+/* atalho para a ficha de cliente, ao lado da sacola */
+.account {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  white-space: nowrap;
+  transition: color 0.35s ease;
+}
+
+.account:hover {
+  color: var(--malva-500);
+}
+
+@media (max-width: 780px) {
+  .account {
+    display: none;
+  }
+}
